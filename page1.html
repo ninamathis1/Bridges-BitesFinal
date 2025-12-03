@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Test</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #000;
+            color: white;
+            text-align: center;
+            padding: 40px;
+            overflow: hidden; /* Needed so scrolling doesn’t appear */
+        }
+
+        /* Falling Emoji Layer */
+        .emoji {
+            position: fixed;
+            top: -50px;
+            font-size: 40px;
+            animation-name: fall;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            z-index: 1;
+            opacity: 0.85;
+            pointer-events: none;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-50px); }
+            100% { transform: translateY(110vh); }
+        }
+
+        /* Keep the video above falling emojis */
+        .video-container, h1, a {
+            position: relative;
+            z-index: 5;
+        }
+
+        .video-container {
+            width: 80%;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 5px solid rgb(233, 226, 9);
+            border-radius: 15px;
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        a {
+            color: #ffea00;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Falling Emoji Container -->
+    <div id="emoji-container"></div>
+
+    <h1>How Does it Work?</h1>
+
+    <!-- VIDEO BOX -->
+    <div class="video-container">
+        <video id="myVideo" width="100%" controls preload="auto" playsinline>
+            <source src="intro.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <br>
+
+    <!-- YOUTUBE LINK UNDER VIDEO -->
+    <a href="https://www.youtube.com/watch?v=YOUR_LINK_HERE" target="_blank">
+        Click here for the YouTube version
+    </a>
+
+    <script>
+        const emojis = ["🌉", "🍔", "🍕", "🍣", "🌉", "🍜", "🍩", "🍟", "🌉", "🥡"];
+
+        function createEmoji() {
+            const emoji = document.createElement("div");
+            emoji.classList.add("emoji");
+
+            emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            emoji.style.left = Math.random() * 100 + "vw";
+            emoji.style.animationDuration = (4 + Math.random() * 6) + "s";
+            emoji.style.fontSize = (30 + Math.random() * 30) + "px";
+
+            document.getElementById("emoji-container").appendChild(emoji);
+
+            setTimeout(() => emoji.remove(), 10000);
+        }
+
+        setInterval(createEmoji, 400);
+    </script>
+
+</body>
+</html>
